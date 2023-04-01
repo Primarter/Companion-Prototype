@@ -5,6 +5,7 @@ using UnityEngine;
 public class SendCompanion : MonoBehaviour
 {
     public LayerMask interactionLayer;
+    public LayerMask nonCompanionLayer;
 
     [SerializeField]
     private CompanionMovement companionMovement;
@@ -20,8 +21,18 @@ public class SendCompanion : MonoBehaviour
                 }
             }
         }
+        Debug.DrawRay(Camera.main.transform.position, (companionMovement.transform.position - Camera.main.transform.position).normalized, Color.red);
         if (Input.GetButtonDown("Fire2")) {
-            companionMovement.ResetTarget();
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position,
+                (companionMovement.transform.position - Camera.main.transform.position).normalized,
+                out hit,
+                Mathf.Infinity, nonCompanionLayer))
+            {
+                if (hit.transform.tag == "Companion") {
+                    companionMovement.ResetTarget();
+                }
+            };
         }
     }
 }

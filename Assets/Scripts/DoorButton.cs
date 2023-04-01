@@ -14,7 +14,6 @@ public class DoorButton : MonoBehaviour
     private System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
     public void OpenDoor() {
-        Debug.Log("OpenDoor");
         doorStartPosition = door.position;
         doorEndPosition = doorOpenTarget.position;
         opening = true;
@@ -24,9 +23,7 @@ public class DoorButton : MonoBehaviour
     private void Update() {
         if (opening) {
             float x = EasingFunctions.EaseInOutSine(sw.ElapsedMilliseconds / (openingDuration * 1000f));
-            Debug.Log(x);
             door.position = doorStartPosition + (doorEndPosition - doorStartPosition) * x;
-            // door.position = Vector3.Lerp(doorStartPosition, doorEndPosition, x);
         }
         if (sw.ElapsedMilliseconds > openingDuration * 1000f) {
             opening = false;
