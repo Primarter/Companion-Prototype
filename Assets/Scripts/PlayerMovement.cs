@@ -13,10 +13,13 @@ public class PlayerMovement : MonoBehaviour
     public string JumpButton = "Jump";
     public string DashButton = "Dash";
 
+    [Header("User Parameters")]
+    public Vector2 CameraSensitivity = new Vector2(1, 1);
+    public bool InverseVerticalAxis = false;
+
     [Header("Parameters")]
     public Transform RotationTarget;
     public Transform Character;
-    public Vector2 CameraSensitivity = new Vector2(1, 1);
     public float MoveSpeed = 10f;
     public float JumpStrength = 10f;
     public bool AirControl = false;
@@ -88,7 +91,9 @@ public class PlayerMovement : MonoBehaviour
                 Input.GetAxis(MovementVerticalAxis)
             );
 
-        cameraRotationAxes = new Vector3(Input.GetAxis(CameraVerticalAxis) * CameraSensitivity.y, Input.GetAxis(CameraHorizontalAxis) * CameraSensitivity.x, 0);
+        cameraRotationAxes = new Vector3(
+            Input.GetAxis(CameraVerticalAxis) * CameraSensitivity.y * (InverseVerticalAxis ? -1 : 1),
+            Input.GetAxis(CameraHorizontalAxis) * CameraSensitivity.x, 0);
     }
 
     void FixedUpdate()

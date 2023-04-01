@@ -13,9 +13,10 @@ public class SendCompanion : MonoBehaviour
         if (Input.GetButtonDown("Fire1")) {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity)) {
+                companionMovement.SetTargetPosition(hit.point);
                 Collider[] col = Physics.OverlapSphere(hit.point, 1f, interactionLayer);
                 if (col.Length > 0) {
-                    companionMovement.target = col[0].transform;
+                    companionMovement.SetTargetPosition(col[0].transform.position);
                 }
             }
         }

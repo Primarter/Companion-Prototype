@@ -11,7 +11,7 @@ public class EasingFunctions
         return 1f - Mathf.Sin((x * Mathf.PI) / 2f);
     }
     public static float EaseInOutSine(float x) {
-        return -(Mathf.Cos((x * Mathf.PI) - 1f) / 2f);
+        return -(Mathf.Cos(x * Mathf.PI) - 1f) / 2f;
     }
 
     public static float EaseInQuad(float x) {

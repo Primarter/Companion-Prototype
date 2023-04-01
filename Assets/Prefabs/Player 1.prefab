@@ -383,9 +383,10 @@ MonoBehaviour:
   CameraVerticalAxis: Mouse Y
   JumpButton: Jump
   DashButton: Dash
+  CameraSensitivity: {x: 2.5, y: 0.3}
+  InverseVerticalAxis: 1
   RotationTarget: {fileID: 6432629160574179486}
   Character: {fileID: 6432629159777183584}
-  RotationSensitivity: 150
   MoveSpeed: 10
   JumpStrength: 10
   AirControl: 0

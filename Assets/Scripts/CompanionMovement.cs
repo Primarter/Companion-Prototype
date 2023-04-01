@@ -4,22 +4,40 @@ using UnityEngine;
 
 public class CompanionMovement : MonoBehaviour
 {
-    public Transform target;
+    public Transform defaultTarget;
     public float speed = 1f;
     public float rotationSpeed = 1f;
 
-    private Transform defaultTarget;
+    private Transform target;
+    private bool away = false;
 
     private void Start() {
-        defaultTarget = target;
+        target = new GameObject("Companion Target").transform;
+        ResetTarget();
     }
 
     private void FixedUpdate() {
-        this.transform.position = Vector3.Lerp(transform.position, target.position, speed * Time.fixedDeltaTime);
-        this.transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, rotationSpeed * Time.fixedDeltaTime);
+        if (away) {
+            this.transform.position = Vector3.Lerp(transform.position, target.position, speed * Time.fixedDeltaTime);
+            this.transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, rotationSpeed * Time.fixedDeltaTime);
+        } else {
+            this.transform.position = Vector3.Lerp(transform.position, defaultTarget.position, speed * Time.fixedDeltaTime);
+            this.transform.rotation = Quaternion.Lerp(transform.rotation, defaultTarget.rotation, rotationSpeed * Time.fixedDeltaTime);
+        }
     }
 
     public void ResetTarget() {
-        target = defaultTarget;
+        away = false;
+        target.position = defaultTarget.position;
+        target.rotation = defaultTarget.rotation;
+    }
+
+    public void SetTargetPosition(Vector3 position) {
+        away = true;
+        target.position = position;
+    }
+
+    public void SetTargetRotation(Quaternion rotation) {
+        target.rotation = rotation;
     }
 }
